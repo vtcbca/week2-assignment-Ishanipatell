@@ -1,0 +1,68 @@
+create table stud(sid int primary key,name text);
+create table stud_details(id int references stud(sid),city text,mobileno int);
+insert into stud values(1,'om'),(2,'sai'),(3,'ram'),(4,'laxman'),(5,'krishna'),(6,'radha'),(7,'shiv'),(8,'sivay'),(9,'sati'),(10,'parvati');
+insert into stud_details values(1,'mumbai',9999999999),(2,'surat',8888888888),(3,'navsari',9898989898),(4,'bardoli',8989898989),(5,'vadodra',7878677878),(6,'delhi',7777777777),(7,'surat',9876543242),(8,'ahemdabad',8786878687),(9,'bardoli',7657567656),(10,'baben',0987659876);
+
+select*from stud;
+1|om
+2|sai
+3|ram
+4|laxman
+5|krishna
+6|radha
+7|shiv
+8|sivay
+9|sati
+10|parvati
+
+select*from stud_details;
+1|mumbai|9999999999
+2|surat|8888888888
+3|navsari|9898989898
+4|bardoli|8989898989
+5|vadodra|7878677878
+6|delhi|7777777777
+7|surat|9876543242
+8|ahemdabad|8786878687
+9|bardoli|7657567656
+10|baben|987659876
+.mode table
+select sid as 'student id',name as 'student name',
+city as 'city' from stud,stud_details
+where sid=id and city='surat';
++------------+--------------+-------+
+| student id | student name | city  |
++------------+--------------+-------+
+| 2          | sai          | surat |
+| 7          | shiv         | surat |
++------------+--------------+-------+
+.mode table
+select sid as 'student id',name as 'student name',
+city as 'city',mobileno as 'mobile number' from stud,stud_details
+where sid=id and city like 'b%';
++------------+--------------+---------+---------------+
+| student id | student name |  city   | mobile number |
++------------+--------------+---------+---------------+
+| 4          | laxman       | bardoli | 8989898989    |
+| 9          | sati         | bardoli | 7657567656    |
+| 10         | parvati      | baben   | 987659876     |
++------------+--------------+---------+---------------+
+update stud_details
+set mobileno=8888888888
+where city='surat';
+
+select*from stud_details;
++----+-----------+------------+
+| id |   city    |  mobileno  |
++----+-----------+------------+
+| 1  | mumbai    | 9999999999 |
+| 2  | surat     | 8888888888 |
+| 3  | navsari   | 9898989898 |
+| 4  | bardoli   | 8989898989 |
+| 5  | vadodra   | 7878677878 |
+| 6  | delhi     | 7777777777 |
+| 7  | surat     | 8888888888 |
+| 8  | ahemdabad | 8786878687 |
+| 9  | bardoli   | 7657567656 |
+| 10 | baben     | 987659876  |
++----+-----------+------------+
